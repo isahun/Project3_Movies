@@ -14,18 +14,16 @@ export class TmdbService {
   });
   apiUrl = environment.apiUrl;
 
+
   private handleError(error: HttpErrorResponse): Observable<never> {
     let errorMessage = "S'ha produït un error desconegut!";
     if (error.error instanceof ErrorEvent) {
-      // Error de xarxa (costat client): el missatge ve de l'event.
       errorMessage = `Error: ${error.error.message}`;
     } else {
-      // Error HTTP (costat servidor): tenim codi d'estat i missatge.
       errorMessage = `Codi d'error del servidor: ${error.status}, missatge: ${error.message}`;
     }
     console.error(errorMessage);
-    // throwError crea un Observable que emet un error immediatament.
-    // El subscriptor el rep al callback `error` del subscribe().
+
     return throwError(() => new Error(errorMessage));
   }
 
