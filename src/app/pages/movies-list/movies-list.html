@@ -6,4 +6,16 @@
     <app-movie-card [movie]="movie"></app-movie-card>
     }
   </ul>
+
+  <nav class="pagination">
+    <button (click)="moviesService.prevPage()">
+      ← Anterior
+    </button>
+
+    <span>Pàgina {{ moviesService.currentPage() }}</span>
+
+    <button (click)="moviesService.nextPage()">
+      Següent →
+    </button>
+  </nav>
 </section>
