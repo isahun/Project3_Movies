@@ -14,14 +14,4 @@ export class MoviesList {
   private tmdbService = inject(TmdbService);
   movies: Movie[] = [];
 
-  ngOnInit(): void {
-    this.tmdbService.getMovies().subscribe({
-      next: (data) => {
-        console.log(data);
-        this.movies = data
-      },
-      error: (err) => console.error(err)
-    });
-
-  }
 }
