@@ -38,12 +38,6 @@ export class MoviesService {
         return (new Date(a.release_date).getTime() - new Date(b.release_date).getTime()) * order;
       }
 
-      if (this.sortBy() === 'director') {
-        //return a.director.localeCompare(b.director) * order;
-      return 0;
-      }
-
-      //default: score
       return (a.vote_average - b.vote_average) * order;
     });
   });
