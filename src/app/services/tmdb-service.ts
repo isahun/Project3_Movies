@@ -27,9 +27,9 @@ export class TmdbService {
     return throwError(() => new Error(errorMessage));
   }
 
-  getMovies(): Observable<Movie[]> {
+  getMovies(page:number = 1): Observable<Movie[]> {
     return this.http
-      .get<{ results: Movie[] }>(`${this.apiUrl}/movie/popular`, { headers: this.headers })
+      .get<{ results: Movie[] }>(`${this.apiUrl}/movie/popular?page=${page}`, { headers: this.headers })
       .pipe(map((response) => response.results),
         catchError(this.handleError.bind(this))
       );
