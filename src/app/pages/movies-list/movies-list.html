@@ -1,6 +1,8 @@
 <section class="movies-list flex flex-col gap-10 m-5 p-10">
+  <app-search-tool></app-search-tool>
+
   <ul class="movies-list flex flex-col gap-5">
-    @for (movie of movies; track movie.id) {
+    @for (movie of moviesService.filteredMovies(); track movie.id) {
     <li class="movie-title bg-blue-300 rounded-3xl p-3"> {{ movie.title }}, {{ movie.release_date | date }}</li>
     }
   </ul>
