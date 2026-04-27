@@ -9,7 +9,7 @@ export class MoviesService {
   private tmdbService = inject(TmdbService);
 
   movies = signal<Movie[]>([]);
-
+  currentPage = signal(1);
   isLoading = signal(false);
   error = signal<string | null>(null);
 
@@ -45,7 +45,7 @@ export class MoviesService {
   loadMovies() {
     this.isLoading.set(true);
     this.error.set(null);
-    this.tmdbService.getMovies().subscribe({
+    this.tmdbService.getMovies(this.currentPage()).subscribe({
       next: (data) => {
         this.movies.set(data);
         this.isLoading.set(false);
@@ -56,6 +56,18 @@ export class MoviesService {
       },
     });
   }
+
+    nextPage() {
+      this.currentPage.update(p => p + 1);
+      this.loadMovies();
+    }
+
+    prevPage() {
+      if (this.currentPage() > 1) {
+      this.currentPage.update(p => p - 1);
+      this.loadMovies();
+      }
+    }
 
   resetFilters() {
     this.searchTerm.set('');
