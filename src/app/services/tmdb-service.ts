@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { catchError, map, Observable, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Movie } from '../interfaces/movie';
+import { MovieDetail } from '../interfaces/movie-detail';
+import { Credits, PersonDetail } from '../interfaces/person-detail';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +15,6 @@ export class TmdbService {
     Authorization: `Bearer ${environment.accessToken}`,
   });
   apiUrl = environment.apiUrl;
-
 
   private handleError(error: HttpErrorResponse): Observable<never> {
     let errorMessage = "S'ha produït un error desconegut!";
@@ -27,11 +28,32 @@ export class TmdbService {
     return throwError(() => new Error(errorMessage));
   }
 
-  getMovies(page:number = 1): Observable<Movie[]> {
+  getMovies(page: number = 1): Observable<Movie[]> {
     return this.http
-      .get<{ results: Movie[] }>(`${this.apiUrl}/movie/popular?page=${page}`, { headers: this.headers })
-      .pipe(map((response) => response.results),
-        catchError(this.handleError.bind(this))
+      .get<{
+        results: Movie[];
+      }>(`${this.apiUrl}/movie/popular?page=${page}`, { headers: this.headers })
+      .pipe(
+        map((response) => response.results),
+        catchError(this.handleError.bind(this)),
       );
+  }
+
+  getMovieById(movieId: number): Observable<MovieDetail> {
+    return this.http
+      .get<MovieDetail>(`${this.apiUrl}/movie/${movieId}`, { headers: this.headers })
+      .pipe(catchError(this.handleError.bind(this)));
+  }
+
+  getMovieCredits(movieId: number): Observable<Credits> {
+    return this.http
+      .get<Credits>(`${this.apiUrl}/movie/${movieId}/credits`, { headers: this.headers })
+      .pipe(catchError(this.handleError.bind(this)));
+  }
+
+  getPersonById(personId: number): Observable<PersonDetail> {
+    return this.http
+      .get<PersonDetail>(`${this.apiUrl}/person/${personId}`, { headers: this.headers })
+      .pipe(catchError(this.handleError.bind(this)));
   }
 }

@@ -1,0 +1,32 @@
+@if (isLoading()) {
+  <p>Carregant...</p>
+} @else if (movie()) {
+  <article>
+    <img [src]="'https://image.tmdb.org/t/p/w500' + movie()!.poster_path" [alt]="'Pòster de ' + movie()!.title" />
+    <h1>{{ movie()!.title }}</h1>
+    <p>{{ movie()!.tagline }}</p>
+    <p>{{ movie()!.release_date | date }} · {{ movie()!.runtime }} min</p>
+    <p>{{ movie()!.vote_average | number:'1.1-1' }} / 10</p>
+
+    <ul>
+      @for (genre of movie()!.genres; track genre.id) {
+        <li>{{ genre.name }}</li>
+      }
+    </ul>
+
+    <p>{{ movie()!.overview }}</p>
+
+    @if (director()) {
+      <a [routerLink]="['/director', director()!.id]">Director: {{ director()!.name }}</a>
+    }
+
+    <h2>Repartiment</h2>
+    <ul>
+      @for (actor of cast(); track actor.id) {
+        <li>
+          <a [routerLink]="['/actor', actor.id]">{{ actor.name }} com a {{ actor.character }}</a>
+        </li>
+      }
+    </ul>
+  </article>
+}
