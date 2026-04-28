@@ -1,26 +1,19 @@
+import { MoviesService } from './../../services/movies-service';
 import { Component, inject } from '@angular/core';
-import { TmdbService } from '../../services/tmdb-service';
-import { Movie } from '../../interfaces/movie';
 import { DatePipe } from '@angular/common';
+import { SearchTool } from '../../components/search-tool/search-tool';
+import { MovieCard } from '../../components/movie-card/movie-card';
 
 @Component({
   selector: 'app-movies-list',
-  imports: [DatePipe],
+  imports: [SearchTool, MovieCard],
   templateUrl: './movies-list.html',
   styleUrl: './movies-list.css',
 })
 export class MoviesList {
-  private tmdbService = inject(TmdbService);
-  movies: Movie[] = [];
+  moviesService = inject(MoviesService);
 
-  ngOnInit(): void {
-    this.tmdbService.getMovies().subscribe({
-      next: (data) => {
-        //console.log(data);
-        this.movies = data
-      },
-      error: (err) => console.error(err)
-    });
-
+  ngOnInit() {
+    this.moviesService.loadMovies();
   }
 }

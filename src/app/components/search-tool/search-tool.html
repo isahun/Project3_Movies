@@ -1,1 +1,35 @@
-<p>search-tool works!</p>
+<section class="filter-container">
+  <h3 id="filters-title" class="sr-only">Filtres de cerca i ordenació</h3>
+
+  <article class="search-input-container">
+    <label for="search" class="sr-only">Cercar per nom</label><span class="search-icon">🔍</span>
+    <input type="text" placeholder="Busca pel·lícules" [value]="moviesService.searchTerm()" (input)="onSearch($event)"
+      class="search-input">
+  </article>
+
+  <fieldset class="sort-controls">
+    <legend>Ordenar per:</legend>
+    <button type="button" (click)="changeSort('date')" [class.active]="moviesService.sortBy() === 'date'">Data
+      @if (moviesService.sortBy() === 'date') {
+      {{ moviesService.sortOrder() === 'asc' ? '↑' : '↓' }}
+      }
+    </button>
+
+    <button type="button" (click)="changeSort('score')" [class.active]="moviesService.sortBy() === 'score'">Puntuació
+      @if (moviesService.sortBy() === 'score') {
+      {{ moviesService.sortOrder() === 'asc' ? '↑' : '↓' }}
+      }
+    </button>
+  </fieldset>
+
+  <select [value]="moviesService.selectedGenre() ?? ''" (change)="onGenreSearch($event)">
+    <option value="">Tots els gèneres</option>
+    @for (genre of genres; track genre.id) {
+    <option [value]="genre.id">{{ genre.name }}</option>
+    }
+  </select>
+
+  <button type="button" (click)="moviesService.resetFilters()" class="btn-reset">
+    Netejar filtres
+  </button>
+</section>
