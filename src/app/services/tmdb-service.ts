@@ -5,6 +5,7 @@ import { environment } from '../../environments/environment';
 import { Movie } from '../interfaces/movie';
 import { MovieDetail } from '../interfaces/movie-detail';
 import { Credits, PersonDetail } from '../interfaces/person-detail';
+import { Video } from '../interfaces/movie-detail';
 
 @Injectable({
   providedIn: 'root',
@@ -55,5 +56,17 @@ export class TmdbService {
     return this.http
       .get<PersonDetail>(`${this.apiUrl}/person/${personId}`, { headers: this.headers })
       .pipe(catchError(this.handleError.bind(this)));
+  }
+
+  getMovieVideo(movieId: number): Observable<Video[]> {
+    return this.http
+      .get<{
+        id: number;
+        results: Video[];
+      }>(`${this.apiUrl}/movie/${movieId}/videos`, { headers: this.headers })
+      .pipe(
+        map((response) => response.results),
+        catchError(this.handleError.bind(this)),
+      );
   }
 }
