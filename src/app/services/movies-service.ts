@@ -73,5 +73,6 @@ export class MoviesService {
     this.searchTerm.set('');
     this.sortBy.set('score');
     this.sortOrder.set('desc');
+    this.selectedGenre.set(null);
   }
 }
