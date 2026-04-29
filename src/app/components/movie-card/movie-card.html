@@ -1,15 +1,15 @@
 <section class="card-container">
-  <article class="movie-card">
+  <article class="movie-card group relative bg-[#1a1a1a] rounded-3xl overflow-hidden cursor-pointer p-5 transition-transform duration-300 hover:scale-105 hover:shadow-2xl">
     <a [routerLink]="['/movie', movie().id]">
-      <img [src]="'https://image.tmdb.org/t/p/w300' + movie().poster_path" [alt]="movie().title">
-      <div class="movie-info">
-        <h3> {{ movie().title }}</h3>
+      <img [src]="'https://image.tmdb.org/t/p/w300' + movie().poster_path" [alt]="movie().title" class="w-full aspect-2/3 object-cover rounded-xl">
+      <div class="movie-info p-3">
+        <h3 class="text-white font-semibold text-sm truncate"> {{ movie().title }}</h3>
         <span> {{ movie().release_date | date }}</span>
-        <span>⭐ {{ movie().vote_average | number:'1.1-1' }}</span>
+        <span class="text-yellow-500">⭐ {{ movie().vote_average | number:'1.1-1' }}</span>
       </div>
     </a>
     @if (authService.currentUser()) {
-    <button (click)="favoritesService.toggleFavorite(movie())">
+    <button (click)="favoritesService.toggleFavorite(movie())" class="favorite-btn absolute top-2 right-2 text-xl opacity-0 group-hover:opacity-100 transition-opacity" [attr.aria-label]="favoritesService.isFavorite(movie().id) ? 'Eliminar de favorites' : 'Afegir a favorites'">
       {{ favoritesService.isFavorite(movie().id) ? '❤️' : '🤍' }}
     </button>
     }
