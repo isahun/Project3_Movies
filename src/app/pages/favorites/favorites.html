@@ -1,1 +1,24 @@
-<p>favorites works!</p>
+<section class="favorites">
+
+  @if (favoritesService.favorites().length === 0) {
+  <p>No tens cap pel·lícula afegida a Favorites</p>
+  } @else {
+  <ul>
+    @for (movie of favoritesService.favoritesSortedByRating(); track movie.id) {
+    <li>
+      <app-movie-card [movie]="movie"></app-movie-card>
+      <label>La meva puntuació</label>
+      <select [value]=" favoritesService.getRating(movie.id) ?? ''"
+        (change)=" favoritesService.setRating(movie.id, +$any($event.target).value)">
+        <option value=""> -- </option>
+
+        @for (number of [1,2,3,4,5,6,7,8,9,10]; track number) {
+        <option [value]="number">{{ number }}</option>
+        }
+      </select>
+      <p>Puntuació de l'usuari: {{ favoritesService.getRating(movie.id) }} </p>
+    </li>
+    }
+  </ul>
+  }
+</section>
