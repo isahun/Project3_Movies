@@ -1,18 +1,25 @@
-<section class="m-10">
-<header>
-</header>
+<section class="shell m-10">
+  <header>
+  </header>
 
-<nav class="bg-black text-blue-300 text-2xl flex gap-5 p-8 justify-evenly mb-10 m-5 rounded-4xl">
-  <a routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">Inici</a>
-  <a routerLink="movies" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">Pel·lícules</a>
-  <a routerLink="favorites" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">Favorites</a>
-  <a routerLink="user-profile" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">Perfil</a>
+  <nav class="bg-black text-blue-300 text-2xl flex gap-5 p-8 justify-evenly mb-10 m-5 rounded-4xl">
+    <a routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">Inici</a>
+    <a routerLink="movies" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">Pel·lícules</a>
 
-</nav>
+    @if (authService.isLoggedIn()) {
+    <a routerLink="favorites" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">Favorites</a>
+    <a routerLink="user-profile" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">Perfil</a>
 
-<main>
-  <router-outlet></router-outlet>
-</main>
+    <span>{{ authService.currentUser()?.email }}</span>
+    <button (click)="authService.logout()">Tanca sessió</button>
+    } @else {
+    <a routerLink="/login">Inicia sessió</a>
+    }
+  </nav>
 
-<footer></footer>
+  <main>
+    <router-outlet></router-outlet>
+  </main>
+
+  <footer></footer>
 </section>

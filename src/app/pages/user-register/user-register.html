@@ -1,1 +1,10 @@
-<p>user-register works!</p>
+<section class="register-page">
+  <form (ngSubmit)="onSubmit()">
+    <input type="email" [(ngModel)]="email" name="email" placeholder="Email" required>
+    <input type="password" [(ngModel)]="password" name="password" placeholder="Contrassenya" required>
+
+    @if (error) { <p>{{ error }}</p>}
+    <button type="submit">Crear compte</button>
+    <a routerLink="/login">Ja tens compte? Inicia sessió</a>
+  </form>
+</section>
