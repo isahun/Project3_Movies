@@ -19,7 +19,7 @@ export interface CastMember {
 export interface CrewMember {
   id: number;
   name: string;
-  job: string; 
+  job: string;
   department: string;
   profile_path: string | null;
 }
@@ -27,4 +27,41 @@ export interface CrewMember {
 export interface Credits {
   cast: CastMember[];
   crew: CrewMember[];
+}
+
+export interface PersonMovieCredit {
+  id: number;
+
+  title: string;
+
+  poster_path: string | null;
+
+  release_date: string;
+
+  character: string;
+
+  vote_average: number;
+}
+
+export interface PersonCrewCredit {
+
+id: number;
+
+title: string;
+
+poster_path: string | null;
+
+release_date: string;
+
+job: string;
+
+department: string;
+
+vote_average: number;
+
+}
+
+export interface PersonMovieCredits {
+  cast: PersonMovieCredit[];
+  crew: PersonCrewCredit[];
 }
