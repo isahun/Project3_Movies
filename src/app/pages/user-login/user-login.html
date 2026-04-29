@@ -1,1 +1,10 @@
-<p>user-login works!</p>
+<form (ngSubmit)="onSubmit()">
+  <input type="email" [(ngModel)]="email" name="email" placeholder="Email" required>
+  <input type="password" [(ngModel)]="password" name="password" placeholder="Password" required>
+
+  @if (error) {
+    <p>{{ error }}</p>
+  }
+  <button type="submit">Entrar</button>
+  <a routerLink="/register">No tens compte? Registra't</a>
+</form>
