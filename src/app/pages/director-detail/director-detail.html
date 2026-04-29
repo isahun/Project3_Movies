@@ -1,1 +1,37 @@
-<p>director-detail works!</p>
+@if (isLoading()) {
+<p>Carregant...</p>
+} @else if (director()) {
+<article>
+  <img [src]="'https://image.tmdb.org/t/p/w300' + director()!.profile_path" [alt]="'Foto de ' + director()!.name" />
+  <h1>{{ director()!.name }}</h1>
+
+  @if (director()!.place_of_birth) {
+  <p>Nacionalitat: {{ director()!.place_of_birth }}</p>
+  }
+
+  @if (director()!.birthday){
+  <p>Data de naixement: {{ director()!.birthday | date:'longDate' }}</p>
+  }
+
+  @if (director()!.biography){
+  <p>Biografia: {{ director()!.biography }}</p>
+  }
+
+  @if (movies().length) {
+  <section>
+    <h2>Pel·lícules dirigides</h2>
+    <ul>
+      @for (movie of movies(); track movie.id) {
+      <li>
+        <a [routerLink]="['/movie', movie.id]">
+          <img [src]="'https://image.tmdb.org/t/p/w200' + movie.poster_path" [alt]="'Pòster de ' + movie.title">
+          <p>{{ movie.title }}</p>
+          <p>{{ movie.release_date | date: 'yyyy' }}</p>
+        </a>
+      </li>
+      }
+    </ul>
+  </section>
+  }
+</article>
+}
