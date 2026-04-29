@@ -1,1 +1,39 @@
-<p>actor-detail works!</p>
+@if (isLoading()) {
+<p>Carregant...</p>
+} @else if (actor()) {
+<article>
+  <img [src]="'https://image.tmdb.org/t/p/w300' + actor()!.profile_path" [alt]="'Foto de ' + actor()!.name" />
+  <h1>{{ actor()!.name }}</h1>
+  @if (actor()!.place_of_birth) {
+  <p>Nacionalitat: {{ actor()!.place_of_birth }}</p>
+  }
+
+  @if (actor()!.birthday){
+  <p>Data de naixement: {{ actor()!.birthday | date:'longDate' }}</p>
+  }
+
+  @if (actor()!.biography){
+  <p>Biografia: {{ actor()!.biography }}</p>
+  }
+
+  @if (movies().length) {
+  <section>
+    <h2>Filmografia</h2>
+    <ul>
+      @for (movie of movies(); track movie.id) {
+      <li>
+        <a [routerLink]="['/movie', movie.id]">
+          <img [src]="'https://image.tmdb.org/t/p/w200' + movie.poster_path" [alt]="'Pòster de ' + movie.title">
+          <p>{{ movie.title }}</p>
+          @if (movie.character) {
+          <p>com a {{ movie.character }}</p>
+          }
+          <p>{{ movie.release_date | date: 'yyyy' }}</p>
+        </a>
+      </li>
+      }
+    </ul>
+  </section>
+  }
+</article>
+}
