@@ -10,6 +10,7 @@ import { UserRegister } from './pages/user-register/user-register';
 import { NotFound } from './pages/not-found/not-found';
 import { ActorDetail } from './pages/actor-detail/actor-detail';
 import { DirectorDetail } from './pages/director-detail/director-detail';
+import { authGuard } from './guards/auth-guard';
 
 export const routes: Routes = [{
   path: '',
@@ -19,8 +20,8 @@ export const routes: Routes = [{
     { path: 'movie/:movieId', component: MovieDetailPage },
     { path: 'actor/:actorId', component: ActorDetail },
     { path: 'director/:directorId', component: DirectorDetail },
-    { path: 'favorites', component: Favorites },
-    { path: 'user-profile', component: UserProfile },
+    { path: 'favorites', component: Favorites, canActivate: [authGuard] },
+    { path: 'user-profile', component: UserProfile, canActivate: [authGuard] },
   ]
 },
     { path: 'login', component: UserLogin },
