@@ -1,32 +1,40 @@
 @if (isLoading()) {
-<p>Carregant...</p>
+<p class="text-center text-gray-400 py-20">Carregant...</p>
 } @else if (director()) {
-<article>
-  <img [src]="'https://image.tmdb.org/t/p/w300' + director()!.profile_path" [alt]="'Foto de ' + director()!.name" />
-  <h1>{{ director()!.name }}</h1>
+<article class="max-w-4xl mx-auto px-6 py-8">
+  <div class="flex flex-col md:flex-row gap-8 mb-10">
 
-  @if (director()!.place_of_birth) {
-  <p>Nacionalitat: {{ director()!.place_of_birth }}</p>
-  }
+    <img [src]="'https://image.tmdb.org/t/p/w300' + director()!.profile_path" [alt]="'Foto de ' + director()!.name"
+      class="w-48 rounded-xl object-cover self-start shadow-xl">
 
-  @if (director()!.birthday){
-  <p>Data de naixement: {{ director()!.birthday | date:'longDate' }}</p>
-  }
+    <div class="flex flex-col gap-2">
+      <h1 class="text-3xl font-bold text-white">{{ director()!.name }}</h1>
 
-  @if (director()!.biography){
-  <p>Biografia: {{ director()!.biography }}</p>
-  }
+      @if (director()!.place_of_birth) {
+      <p class="text-gray-400 text-sm">Nacionalitat: {{ director()!.place_of_birth }}</p>
+      }
+
+      @if (director()!.birthday){
+      <p class="text-gray-400 text-sm">Data de naixement: {{ director()!.birthday | date:'longDate' }}</p>
+      }
+
+      @if (director()!.biography){
+      <p class="text-gray-300 leading-relaxed text-sm mt-2">Biografia: {{ director()!.biography }}</p>
+      }
+    </div>
+  </div>
 
   @if (movies().length) {
   <section>
-    <h2>Pel·lícules dirigides</h2>
-    <ul>
+    <h2 class="text-xl font-semibold text-white mb-4">Pel·lícules dirigides</h2>
+    <ul class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-4">
       @for (movie of movies(); track movie.id) {
       <li>
         <a [routerLink]="['/movie', movie.id]">
-          <img [src]="'https://image.tmdb.org/t/p/w200' + movie.poster_path" [alt]="'Pòster de ' + movie.title">
-          <p>{{ movie.title }}</p>
-          <p>{{ movie.release_date | date: 'yyyy' }}</p>
+          <img [src]="'https://image.tmdb.org/t/p/w200' + movie.poster_path" [alt]="'Pòster de ' + movie.title"
+            class="w-full rounded-lg group-hover:scale-105 transition-transform duration-300">
+          <p class="text-xs text-gray-500 italic">{{ movie.title }}</p>
+          <p class="text-xs text-gray-500">{{ movie.release_date | date: 'yyyy' }}</p>
         </a>
       </li>
       }
