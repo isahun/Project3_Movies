@@ -1,0 +1,5 @@
+.active-link {
+  color: white;
+  border-bottom: 2px solid #e50914;
+  padding-bottom: 2px;
+}
