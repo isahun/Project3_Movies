@@ -1,1 +1,38 @@
-<p>user-profile works!</p>
+<section class="max-w-lg mx-auto px-6 py-12">
+  <h1 class="text-3xl font-bold text-white mb-8">El meu perfil</h1>
+
+  <div class="bg-[#1a1a1a] rounded-2xl p-6 flex flex-col gap-4">
+
+    <div class="flex items-center gap-4">
+      <div class="w-14 h-14 rounded-full bg-red-600 flex items-center justify-center text-white text-2xl font-bold">
+        {{ authService.currentUser()?.email?.[0]?.toUpperCase() }}
+      </div>
+      <div>
+        <p class="text-white font-semibold">{{ authService.currentUser()?.email }}</p>
+        <p class="text-gray-500 text-sm">Usuari registrat</p>
+      </div>
+    </div>
+
+    <hr class="border-white/10" />
+
+    <div class="flex justify-around text-center">
+      <div>
+        <p class="text-2xl font-bold text-white">{{ favoritesService.favorites().length }}</p>
+        <p class="text-gray-400 text-sm">Favorites</p>
+      </div>
+      <div>
+       <p class="text-2xl font-bold text-yellow-400">
+          {{ averageRating() !== null ? (averageRating() | number:'1.1-1') : '-' }}
+        </p>
+        <p class="text-gray-400 text-sm">Puntuació mitjana</p>
+      </div>
+    </div>
+
+    <hr class="border-white/10" />
+
+    <button (click)="authService.logout()"
+      class="w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg transition-colors">
+      Tancar sessió
+    </button>
+  </div>
+</section>
