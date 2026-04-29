@@ -3,6 +3,7 @@ import { Movie } from '../../interfaces/movie';
 import { DatePipe, DecimalPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FavoritesService } from '../../services/favorites-service';
+import { AuthService } from '../../services/auth-service';
 
 @Component({
   selector: 'app-movie-card',
@@ -12,6 +13,6 @@ import { FavoritesService } from '../../services/favorites-service';
 })
 export class MovieCard {
   movie = input.required<Movie>();
-
   favoritesService = inject(FavoritesService);
+  authService = inject(AuthService);
 }

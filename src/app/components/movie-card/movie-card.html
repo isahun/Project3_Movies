@@ -8,8 +8,10 @@
         <span>⭐ {{ movie().vote_average | number:'1.1-1' }}</span>
       </div>
     </a>
+    @if (authService.currentUser()) {
     <button (click)="favoritesService.toggleFavorite(movie())">
       {{ favoritesService.isFavorite(movie().id) ? '❤️' : '🤍' }}
     </button>
+    }
   </article>
 </section>
