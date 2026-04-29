@@ -1,35 +1,43 @@
-<section class="filter-container">
+<section class="filter-container flex flex-wrap gap-3 items-center mb-6">
   <h3 id="filters-title" class="sr-only">Filtres de cerca i ordenació</h3>
 
-  <article class="search-input-container">
-    <label for="search" class="sr-only">Cercar per nom</label><span class="search-icon">🔍</span>
+  <article class="search-input-container relative flex-1 min-w-48">
+    <label for="search" class="sr-only">Cercar per nom</label><span
+      class="search-icon absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">🔍</span>
     <input type="text" placeholder="Busca pel·lícules" [value]="moviesService.searchTerm()" (input)="onSearch($event)"
-      class="search-input">
+      class="search-input w-full bg-[#1a1a1a] text-white pl-9 pr-4 py-2 rounded-lg border border-white/10 focus:border-red-400 focus:outline-none placeholder:text-gray-500 transition-colors">
   </article>
 
-  <fieldset class="sort-controls">
-    <legend>Ordenar per:</legend>
-    <button type="button" (click)="changeSort('date')" [class.active]="moviesService.sortBy() === 'date'">Data
-      @if (moviesService.sortBy() === 'date') {
+  <fieldset class="sort-controls flex gap-2">
+    <button type="button" (click)="changeSort('score')"
+      [class]="moviesService.sortBy() === 'score'
+        ? 'px-3 py-2 rounded-lg text-sm bg-red-800 text-white'
+        : 'px-3 py-2 rounded-lg text-sm bg-[#1a1a1a] text-gray-300 hover:cursor-pointer border border-white/10 hover:border-white/30 transition-colors'">Puntuació
+      @if (moviesService.sortBy() === 'score') {
       {{ moviesService.sortOrder() === 'asc' ? '↑' : '↓' }}
       }
     </button>
 
-    <button type="button" (click)="changeSort('score')" [class.active]="moviesService.sortBy() === 'score'">Puntuació
-      @if (moviesService.sortBy() === 'score') {
+    <button type="button" (click)="changeSort('date')"
+      [class]="moviesService.sortBy() === 'date'
+        ? 'px-3 py-2 rounded-lg text-sm bg-red-800 text-white'
+        : 'px-3 py-2 rounded-lg text-sm bg-[#1a1a1a] text-gray-300 hover:cursor-pointer border border-white/10 hover:border-white/30 transition-colors'">Data
+      @if (moviesService.sortBy() === 'date') {
       {{ moviesService.sortOrder() === 'asc' ? '↑' : '↓' }}
       }
     </button>
   </fieldset>
 
-  <select [value]="moviesService.selectedGenre() ?? ''" (change)="onGenreSearch($event)">
+  <select [value]="moviesService.selectedGenre() ?? ''" (change)="onGenreSearch($event)"
+    class="bg-[#1a1a1a] text-gray-300 px-3 py-2 rounded-lg border border-white/10 focus:border-red-400 focus:outline-none transition-colors cursor-pointer">
     <option value="">Tots els gèneres</option>
     @for (genre of genres; track genre.id) {
     <option [value]="genre.id">{{ genre.name }}</option>
     }
   </select>
 
-  <button type="button" (click)="moviesService.resetFilters()" class="btn-reset">
+  <button type="button" (click)="moviesService.resetFilters()"
+    class="btn-reset px-3 py-2 rounded-lg text-sm text-gray-400 border-white/10 cursor-pointer hover:text-white hover:border-white/30 transition-colors">
     Netejar filtres
   </button>
 </section>
