@@ -1,6 +1,6 @@
 <section class="card-container">
   <article class="movie-card">
-    <a [routerLink]="['/movies', movie().id]">
+    <a [routerLink]="['/movie', movie().id]">
       <img [src]="'https://image.tmdb.org/t/p/w300' + movie().poster_path" [alt]="movie().title">
       <div class="movie-info">
         <h3> {{ movie().title }}</h3>
@@ -8,5 +8,8 @@
         <span>⭐ {{ movie().vote_average | number:'1.1-1' }}</span>
       </div>
     </a>
+    <button (click)="favoritesService.toggleFavorite(movie())">
+      {{ favoritesService.isFavorite(movie().id) ? '❤️' : '🤍' }}
+    </button>
   </article>
 </section>
