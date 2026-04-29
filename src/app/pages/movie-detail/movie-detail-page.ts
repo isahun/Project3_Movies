@@ -2,7 +2,7 @@ import { Component, input, inject, OnInit, signal } from '@angular/core';
 import { TmdbService } from '../../services/tmdb-service';
 import { forkJoin } from 'rxjs';
 import { CastMember, CrewMember } from '../../interfaces/person-detail';
-import { MovieDetail, Video } from '../../interfaces/movie-detail';
+import { MovieDetail, WatchProviderResult } from '../../interfaces/movie-detail';
 import { DatePipe, DecimalPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
@@ -21,6 +21,8 @@ export class MovieDetailPage implements OnInit {
   movie = signal<MovieDetail | null>(null);
   cast = signal<CastMember[]>([]);
   director = signal<CrewMember | null>(null);
+  watchProviders = signal<WatchProviderResult | null>(null);
+
   trailerUrl: SafeResourceUrl | null = null;
 
   isLoading = signal(true);
@@ -32,12 +34,13 @@ export class MovieDetailPage implements OnInit {
       movie: this.tmdbService.getMovieById(movieId),
       credits: this.tmdbService.getMovieCredits(movieId),
       videos: this.tmdbService.getMovieVideo(movieId),
+      providers: this.tmdbService.getMovieWatchProviders(movieId),
     }).subscribe({
-      next: ({ movie, credits, videos }) => {
+      next: ({ movie, credits, videos, providers }) => {
         this.movie.set(movie);
         this.cast.set(credits.cast.slice(0, 10));
         this.director.set(credits.crew.find((person) => person.job === 'Director') ?? null);
-        console.log('Videos disponibles:', videos);
+        this.watchProviders.set(providers)
 
         const trailer =
           videos.find(

@@ -29,6 +29,35 @@
     }
   </ul>
 
+  @if (watchProviders()) {
+  <section>
+    <h2>On veure-la</h2>
+    @if (watchProviders()!.flatrate?.length) {
+    <h3>Streaming</h3>
+    <ul>
+      @for (p of watchProviders()!.flatrate!; track p.provider_id){
+      <li>
+        <img [src]="'https://image.tmdb.org/t/p/w45' + p.logo_path" [alt]="p.provider_name">
+        {{ p.provider_name }}
+      </li>
+      }
+    </ul>
+    }
+
+    @if (watchProviders()!.rent?.length) {
+    <h3>Lloguer</h3>
+    <ul>
+      @for (p of watchProviders()!.rent!; track p.provider_id) {
+      <li>
+        <img [src]="'https://image.tmdb.org/t/p/w45' + p.logo_path" [alt]="p.provider_name">
+        {{ p.provider_name }}
+      </li>
+      }
+    </ul>
+    }
+  </section>
+  }
+
 
   @if (trailerUrl) {
   <iframe [src]="trailerUrl" width="560" height="315" frameborder="0" allowfullscreen>Tràiler</iframe>
