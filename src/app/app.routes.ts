@@ -16,7 +16,7 @@ export const routes: Routes = [{
   component: Shell, children: [
     { path: '', component: Home },
     { path: 'movies', component: MoviesList },
-    { path: 'movies/:movieId', component: MovieDetailPage },
+    { path: 'movie/:movieId', component: MovieDetailPage },
     { path: 'actor/:actorId', component: ActorDetail },
     { path: 'director/:directorId', component: DirectorDetail },
     { path: 'favorites', component: Favorites },
