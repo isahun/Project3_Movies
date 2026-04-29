@@ -15,7 +15,7 @@ export class MoviesService {
 
   searchTerm = signal<string>('');
   selectedGenre = signal<number | null>(null);
-  sortBy = signal<'director' | 'date' | 'score'>('score');
+  sortBy = signal<'date' | 'score'>('score');
   sortOrder = signal<'asc' | 'desc'>('desc');
 
   filteredMovies = computed(() => {
