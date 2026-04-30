@@ -1,6 +1,5 @@
 import { MoviesService } from './../../services/movies-service';
 import { Component, inject } from '@angular/core';
-import { DatePipe } from '@angular/common';
 import { SearchTool } from '../../components/search-tool/search-tool';
 import { MovieCard } from '../../components/movie-card/movie-card';
 
@@ -12,6 +11,7 @@ import { MovieCard } from '../../components/movie-card/movie-card';
 })
 export class MoviesList {
   moviesService = inject(MoviesService);
+  filteredMovies = this.moviesService.filteredMovies;
 
   ngOnInit() {
     this.moviesService.loadMovies();
