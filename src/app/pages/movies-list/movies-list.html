@@ -1,8 +1,8 @@
 <section class="movies-list px-6 py-8 max-w-7xl mx-auto">
   <app-search-tool></app-search-tool>
 
-  <ul class="movies-list grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mt-6">
-    @for (movie of moviesService.filteredMovies(); track movie.id) {
+  <ul class="movies-list flex flex-col gap-5">
+    @for (movie of filteredMovies(); track movie.id) {
     <app-movie-card [movie]="movie"></app-movie-card>
     }
   </ul>
