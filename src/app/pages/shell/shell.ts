@@ -1,5 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { filter } from 'rxjs';
 import { AuthService } from '../../services/auth-service';
 
 @Component({
@@ -10,14 +12,16 @@ import { AuthService } from '../../services/auth-service';
 })
 export class Shell {
   authService = inject(AuthService);
-
   menuOpen = signal(false);
+
+  constructor() {
+    inject(Router).events.pipe(
+      filter(event => event instanceof NavigationEnd),
+      takeUntilDestroyed()
+    ).subscribe(() => this.menuOpen.set(false));
+  }
 
   toggleMenu() {
     this.menuOpen.update((open) => !open);
-  }
-
-  closeMenu() {
-    this.menuOpen.set(false);
   }
 }
