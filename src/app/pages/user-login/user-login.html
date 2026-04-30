@@ -1,10 +1,17 @@
-<form (ngSubmit)="onSubmit()">
-  <input type="email" [(ngModel)]="email" name="email" placeholder="Email" required>
-  <input type="password" [(ngModel)]="password" name="password" placeholder="Password" required>
+<section class="login mx-10 my-auto min-h-[80vh]">
+  <form (ngSubmit)="onSubmit()"
+    class="login-form flex flex-col gap-5 items-center justify-center bg-gray-800 p-10 rounded-3xl m-auto max-w-120">
+    <h1>Benvingut/da al CINEMA</h1>
 
-  @if (error) {
+    <input class="login-input" type="email" [(ngModel)]="email" name="email" placeholder="Email" required>
+    <input class="login-input" type="password" [(ngModel)]="password" name="password" placeholder="Password" required>
+
+    @if (error) {
     <p>{{ error }}</p>
-  }
-  <button type="submit">Entrar</button>
-  <a routerLink="/register">No tens compte? Registra't</a>
-</form>
+    }
+
+    <button class="login-btn px-5 py-2.5 rounded-3xl cursor-pointer" type="submit">Entrar</button>
+    <a routerLink="/register" class="register-link hover:underline cursor-pointer">No tens compte? Registra't</a>
+    <a routerLink="/" class="home-link hover:underline cursor-pointer">Ves a la pàgina principal</a>
+  </form>
+</section>

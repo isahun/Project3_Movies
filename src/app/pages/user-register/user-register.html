@@ -1,10 +1,16 @@
-<section class="register-page">
-  <form (ngSubmit)="onSubmit()">
-    <input type="email" [(ngModel)]="email" name="email" placeholder="Email" required>
-    <input type="password" [(ngModel)]="password" name="password" placeholder="Contrassenya" required>
+<section class="register mx-10 my-auto min-h-[80vh]">
+  <form (ngSubmit)="onSubmit()"
+    class="register-form flex flex-col gap-5 items-center justify-center bg-gray-800 p-10 rounded-3xl m-auto max-w-120">
+    <h1>Crea el teu compte</h1>
 
-    @if (error) { <p>{{ error }}</p>}
-    <button type="submit">Crear compte</button>
-    <a routerLink="/login">Ja tens compte? Inicia sessió</a>
+    <input class="register-input" type="email" [(ngModel)]="email" name="email" placeholder="Email" required>
+    <input class="register-input" type="password" [(ngModel)]="password" name="password" placeholder="Contrassenya" required>
+
+    @if (error) {
+    <p class="error-msg text-sm">{{ error }}</p>
+    }
+
+    <button class="register-btn px-5 py-2.5 rounded-3xl cursor-pointer" type="submit">Crear compte</button>
+    <a routerLink="/login" class="login-link hover:underline cursor-pointer">Ja tens compte? Inicia sessió</a>
   </form>
 </section>

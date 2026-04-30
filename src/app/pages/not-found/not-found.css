@@ -1,0 +1,13 @@
+.text-accent {
+  color: var(--color-accent);
+}
+
+.back-btn {
+  background: var(--color-accent);
+  color: var(--color-text);
+}
+
+.back-btn:hover {
+  background: var(--color-accent-hover);
+  transform: scale(1.05);
+}

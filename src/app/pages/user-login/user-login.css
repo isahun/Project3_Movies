@@ -1,0 +1,27 @@
+.login-input {
+  background-color: white/50;
+  padding: 1rem;
+  border-radius: 10px;
+  outline: 2px solid var(--color-text);
+  outline-offset: 2px;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.login-btn {
+  background: var(--color-accent);
+}
+
+.login-btn:hover {
+  background: var(--color-accent-hover);
+  transform: scale(1.1) perspective(1px);
+}
+
+.register-link:hover {
+  color: var(--color-muted);
+  transform: scale(1) perspective(0.5px);
+
+}

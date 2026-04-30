@@ -1,5 +1,5 @@
 import { MoviesService } from './../../services/movies-service';
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { SearchTool } from '../../components/search-tool/search-tool';
 import { MovieCard } from '../../components/movie-card/movie-card';
 
