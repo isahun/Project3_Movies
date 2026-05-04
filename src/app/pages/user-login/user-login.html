@@ -10,8 +10,16 @@
     <p>{{ error }}</p>
     }
 
-    <button class="login-btn px-5 py-2.5 rounded-3xl cursor-pointer" type="submit">Entrar</button>
-    <a routerLink="/register" class="register-link hover:underline cursor-pointer">No tens compte? Registra't</a>
-    <a routerLink="/" class="home-link hover:underline cursor-pointer">Ves a la pàgina principal</a>
+    <div class="login-btn-container flex flex-col gap-3">
+      <button class="login-btn px-5 py-2.5 rounded-3xl cursor-pointer" type="submit">Entrar</button>
+      <button type="button" (click)="authService.loginWithGoogle()"
+        class="google-login-btn flex items-center justify-center gap-3 bg-white text-gray-800 font-semibold py-2 px-3 rounded-lg transition-all cursor-pointer">
+        <img src="https://www.google.com/favicon.ico" class="w-4 h-4" alt="Google" />
+        Continua amb Google
+      </button>
+      <a routerLink="/register" class="register-link text-center hover:underline cursor-pointer text-sm">No tens compte?
+        Registra't</a>
+      <a routerLink="/" class="home-link text-center rounded-3xl p-2 mt-10 hover:underline cursor-pointer">Torna a l'inici</a>
+    </div>
   </form>
 </section>
