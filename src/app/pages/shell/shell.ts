@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, HostListener, ElementRef } from '@angular/core';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { filter } from 'rxjs';
@@ -12,16 +12,24 @@ import { AuthService } from '../../services/auth-service';
 })
 export class Shell {
   authService = inject(AuthService);
+  private elementRef = inject(ElementRef);
   menuOpen = signal(false);
 
   constructor() {
-    inject(Router).events.pipe(
-      filter(event => event instanceof NavigationEnd),
-      takeUntilDestroyed()
-    ).subscribe(() => this.menuOpen.set(false));
+    inject(Router)
+      .events.pipe(
+        filter((event) => event instanceof NavigationEnd),
+        takeUntilDestroyed(),
+      )
+      .subscribe(() => this.menuOpen.set(false));
   }
 
   toggleMenu() {
     this.menuOpen.update((open) => !open);
   }
-}
+
+  @HostListener('document:click')
+  onDocumentClick() {
+      this.menuOpen.set(false);
+    }
+  }

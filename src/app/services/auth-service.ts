@@ -43,4 +43,14 @@ export class AuthService {
     await this.supabase.auth.signOut();
     this.router.navigate(['/login']);
   }
+
+  async loginWithGoogle() {
+    const { error } = await this.supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: window.location.origin,
+      },
+    });
+    if (error) throw error;
+  }
 }

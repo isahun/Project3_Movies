@@ -10,7 +10,7 @@ import { AuthService } from '../../services/auth-service';
   styleUrl: './user-login.css',
 })
 export class UserLogin {
-  private authService = inject(AuthService);
+  authService = inject(AuthService);
 
   email = '';
   password = '';

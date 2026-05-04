@@ -17,11 +17,18 @@
 
 .login-btn:hover {
   background: var(--color-accent-hover);
-  transform: scale(1.1) perspective(1px);
+}
+
+.google-login-btn:hover {
+  filter: brightness(0.90);
 }
 
 .register-link:hover {
   color: var(--color-muted);
   transform: scale(1) perspective(0.5px);
+}
 
+.home-link {
+  color: var(--color-accent);
+  background: white;
 }
