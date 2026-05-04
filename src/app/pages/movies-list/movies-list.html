@@ -8,13 +8,15 @@
   </ul>
 
   <nav class="pagination flex justify-center gap-6 mt-8 text-gray-400">
-    <button (click)="moviesService.prevPage()" class="pag-btn bg-black p-3 rounded-3xl cursor-pointer hover:text-white hover:scale-1.2  transition-colors ">
+    <button (click)="moviesService.prevPage()" [disabled]="moviesService.currentPage() === 1"
+      class="pag-btn bg-black p-3 rounded-3xl cursor-pointer hover:text-white hover:scale-1.2  transition-colors ">
       ← Anterior
     </button>
 
     <span class="text-white p-3">Pàgina {{ moviesService.currentPage() }}</span>
 
-    <button (click)="moviesService.nextPage()" class="pag-btn bg-black p-3 rounded-3xl cursor-pointer hover:text-white hover:scale-1.2  transition-colors ">
+    <button (click)="moviesService.nextPage()"
+      class="pag-btn bg-black p-3 rounded-3xl cursor-pointer hover:text-white hover:scale-1.2  transition-colors ">
       Següent →
     </button>
   </nav>
