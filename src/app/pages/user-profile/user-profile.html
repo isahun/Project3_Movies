@@ -4,8 +4,14 @@
   <div class="bg-[#1a1a1a] rounded-2xl p-6 flex flex-col gap-4">
 
     <div class="flex items-center gap-4">
-      <div class="w-14 h-14 rounded-full bg-(--color-accent) flex items-center justify-center text-white text-2xl font-bold">
+      <div
+        class="w-14 h-14 rounded-full overflow-hidden flex items-center justify-center bg-(--color-accent) text-white text-2xl font-bold">
+        @if (authService.currentUser()?.user_metadata?.['avatar_url']) {
+        <img [src]="authService.currentUser()!.user_metadata['avatar_url']" class="w-full h-full object-cover"
+          alt="Foto de perfil" />
+        } @else {
         {{ authService.currentUser()?.email?.[0]?.toUpperCase() }}
+        }
       </div>
       <div>
         <p class="text-white font-semibold">{{ authService.currentUser()?.email }}</p>
