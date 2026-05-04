@@ -33,6 +33,16 @@ export class AuthService {
     this.router.navigate(['/']);
   }
 
+  async loginWithGoogle() {
+    const { error } = await this.supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: window.location.origin,
+      },
+    });
+    if (error) throw error;
+  }
+
   async register(email: string, password: string) {
     const { error } = await this.supabase.auth.signUp({ email, password });
     if (error) throw error;
@@ -42,15 +52,5 @@ export class AuthService {
   async logout() {
     await this.supabase.auth.signOut();
     this.router.navigate(['/login']);
-  }
-
-  async loginWithGoogle() {
-    const { error } = await this.supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: {
-        redirectTo: window.location.origin,
-      },
-    });
-    if (error) throw error;
   }
 }
