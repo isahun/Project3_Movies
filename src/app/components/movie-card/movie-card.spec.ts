@@ -38,4 +38,24 @@ describe('MovieCard', () => {
   it('should receive the movie input', () => {
     expect(component.movie()).toEqual(mockMovie);
   });
+
+  it('should display the movie title in the template', async () => {
+    fixture.componentRef.setInput('movie', mockMovie);
+
+    fixture.detectChanges();
+
+    const compiled = fixture.nativeElement as HTMLElement;
+
+    expect(compiled.textContent).toContain(mockMovie.title);
+  });
+
+  it('should have a link to the movie detail page', () => {
+    fixture.componentRef.setInput('movie', mockMovie);
+
+    fixture.detectChanges();
+
+    const anchor = fixture.nativeElement.querySelector('a');
+
+    expect(anchor).toBeTruthy();
+  });
 });
