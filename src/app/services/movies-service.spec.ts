@@ -31,7 +31,6 @@ describe('MoviesService', () => {
     expect(service).toBeTruthy();
   });
 
-  //Filtered movies
   describe('filteredMovies', () => {
     beforeEach(() => {
       service.movies.set(mockMovies as any);
@@ -76,7 +75,6 @@ describe('MoviesService', () => {
     });
   });
 
-  //RESET FILTERS
   describe('resetFilters()', () => {
     it('should reset all filters to default', () => {
       service.searchTerm.set('test');
@@ -93,7 +91,6 @@ describe('MoviesService', () => {
     });
   });
 
-  //LOAD MOVIES
   describe('loadMovies()', () => {
     it('should set isLoading to true while loading', () => {
       mockTmdb.getMovies.mockReturnValue(of([]));
@@ -116,7 +113,6 @@ describe('MoviesService', () => {
     });
   });
 
-  // --- paginació ---
 
   describe('nextPage() / prevPage()', () => {
     it('nextPage should increment currentPage and reload', () => {
@@ -136,7 +132,7 @@ describe('MoviesService', () => {
     });
 
     it('prevPage should NOT go below page 1', () => {
-      service.prevPage(); // currentPage ja és 1
+      service.prevPage();
 
       expect(service.currentPage()).toBe(1);
     });

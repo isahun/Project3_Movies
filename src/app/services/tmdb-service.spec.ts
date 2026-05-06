@@ -18,19 +18,16 @@ describe('TmbdService', () => {
     });
 
     service = TestBed.inject(TmdbService);
-
     httpMock = TestBed.inject(HttpTestingController);
   });
 
   afterEach(() => {
-    httpMock.verify(); // comprova que no queden requests pendents
+    httpMock.verify();
   });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
-
-  // --- getMovies ---
 
   describe('getMovies()', () => {
     it('should return the results array from the response', () => {
@@ -41,9 +38,7 @@ describe('TmbdService', () => {
       });
 
       const req = httpMock.expectOne(`${api}/movie/popular?page=1`);
-
       expect(req.request.method).toBe('GET');
-
       req.flush({ results: mockMovies });
     });
 
@@ -51,9 +46,7 @@ describe('TmbdService', () => {
       service.getMovies().subscribe();
 
       const req = httpMock.expectOne(`${api}/movie/popular?page=1`);
-
       req.flush({ results: [] });
-
       expect(req.request.urlWithParams).toContain('page=1');
     });
 
@@ -64,13 +57,10 @@ describe('TmbdService', () => {
 
       httpMock.expectOne(`${api}/movie/popular?page=1`).flush('Error', {
         status: 500,
-
         statusText: 'Server Error',
       });
     });
   });
-
-  // --- getMovieById ---
 
   describe('getMovieById()', () => {
     it('should return the movie detail', () => {
@@ -81,14 +71,10 @@ describe('TmbdService', () => {
       });
 
       const req = httpMock.expectOne(`${api}/movie/42`);
-
       expect(req.request.method).toBe('GET');
-
       req.flush(mockDetail);
     });
   });
-
-  // --- getMovieCredits ---
 
   describe('getMovieCredits()', () => {
     it('should return credits for a movie', () => {
@@ -102,8 +88,6 @@ describe('TmbdService', () => {
     });
   });
 
-  // --- getPersonById ---
-
   describe('getPersonById()', () => {
     it('should return person detail', () => {
       const mockPerson = { id: 7, name: 'Timothée Chalamet' };
@@ -115,8 +99,6 @@ describe('TmbdService', () => {
       httpMock.expectOne(`${api}/person/7`).flush(mockPerson);
     });
   });
-
-  // --- getMovieVideo ---
 
   describe('getMovieVideo()', () => {
     it('should return the results array of videos', () => {
@@ -130,8 +112,6 @@ describe('TmbdService', () => {
     });
   });
 
-  // --- getMovieWatchProviders ---
-
   describe('getMovieWatchProviders()', () => {
     it('should return providers for the default region (ES)', () => {
       const mockProvider = { link: 'https://...', flatrate: [] };
@@ -141,9 +121,7 @@ describe('TmbdService', () => {
       });
 
       httpMock
-
         .expectOne(`${api}/movie/42/watch/providers`)
-
         .flush({ id: 42, results: { ES: mockProvider } });
     });
 
@@ -153,14 +131,10 @@ describe('TmbdService', () => {
       });
 
       httpMock
-
         .expectOne(`${api}/movie/42/watch/providers`)
-
         .flush({ id: 42, results: {} });
     });
   });
-
-  // --- getPersonMovieCredits ---
 
   describe('getPersonMovieCredits()', () => {
     it('should return movie credits for a person', () => {

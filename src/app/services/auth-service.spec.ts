@@ -49,8 +49,6 @@ describe('AuthService', () => {
     expect(service).toBeTruthy();
   });
 
-  // ------- Constructor -------
-
   describe('constructor', () => {
     it('should call getSession on init', () => {
       expect(mockAuth.getSession).toHaveBeenCalled();
@@ -93,8 +91,6 @@ describe('AuthService', () => {
     });
   });
 
-  // ------- isLoggedIn -------
-
   describe('isLoggedIn()', () => {
     it('should return false when there is no user', () => {
       expect(service.isLoggedIn()).toBe(false);
@@ -106,8 +102,6 @@ describe('AuthService', () => {
       expect(service.isLoggedIn()).toBe(true);
     });
   });
-
-  // ------- login -------
 
   describe('login()', () => {
     it('should call signInWithPassword with the given credentials', async () => {
@@ -138,8 +132,6 @@ describe('AuthService', () => {
     });
   });
 
-  // ------- loginWithGoogle -------
-
   describe('loginWithGoogle()', () => {
     it('should call signInWithOAuth with google provider', async () => {
       await service.loginWithGoogle();
@@ -155,8 +147,6 @@ describe('AuthService', () => {
       await expect(service.loginWithGoogle()).rejects.toThrow('OAuth error');
     });
   });
-
-  // ------- register -------
 
   describe('register()', () => {
     it('should call signUp with the given credentials', async () => {
@@ -188,8 +178,6 @@ describe('AuthService', () => {
       expect(mockRouter.navigate).not.toHaveBeenCalled();
     });
   });
-
-  // ------- logout -------
 
   describe('logout()', () => {
     it('should call signOut', async () => {
