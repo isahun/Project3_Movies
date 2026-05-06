@@ -29,6 +29,6 @@ export class Shell {
 
   @HostListener('document:click')
   onDocumentClick() {
-      this.menuOpen.set(false);
-    }
+    this.menuOpen.set(false);
   }
+}

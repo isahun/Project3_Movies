@@ -10,8 +10,7 @@ import { GENRES } from '../../constants/genres';
 })
 export class SearchTool {
   moviesService = inject(MoviesService);
-  genres = Object.entries(GENRES).map(([id, name]) => ({ id: Number(id), name: name}));
-
+  genres = Object.entries(GENRES).map(([id, name]) => ({ id: Number(id), name: name }));
 
   onSearch(event: Event) {
     const inputValue = (event.target as HTMLInputElement).value;
@@ -20,7 +19,7 @@ export class SearchTool {
 
   onGenreSearch(event: Event) {
     const genreSelectValue = (event.target as HTMLSelectElement).value;
-    this.moviesService.selectedGenre.set(genreSelectValue ? Number(genreSelectValue): null);
+    this.moviesService.selectedGenre.set(genreSelectValue ? Number(genreSelectValue) : null);
   }
 
   changeSort(criteria: 'date' | 'score') {

@@ -15,7 +15,8 @@ export class FavoritesService {
 
   favoritesSortedByRating = computed(() => [
     ...this.favorites().sort(
-      (movieA, movieB) => (this.ratings().get(movieB.id) ?? 0) - (this.ratings().get(movieA.id) ?? 0),
+      (movieA, movieB) =>
+        (this.ratings().get(movieB.id) ?? 0) - (this.ratings().get(movieA.id) ?? 0),
     ),
   ]);
 

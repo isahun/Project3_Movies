@@ -10,7 +10,8 @@
     <div class="flex flex-col gap-3">
       @if (authService.currentUser()) {
       <div class="bg-gray-800 p-3 rounded-3xl w-fit">
-        <button (click)="favoritesService.toggleFavorite(asMovie()!)" class="cursor-pointer text-sm text-gray-400 italic"
+        <button (click)="favoritesService.toggleFavorite(asMovie()!)"
+          class="cursor-pointer text-sm text-gray-400 italic"
           [attr.aria-label]="favoritesService.isFavorite(movie()!.id) ? 'Eliminar de favorites' : 'Afegir a favorites'">
           Afegeix/elimina de favorits {{ favoritesService.isFavorite(movie()!.id) ? '❤️' : '🤍' }}
         </button>
@@ -83,5 +84,5 @@
   }
 </article>
 } @else if (error()) {
-  <p class="text-center text-gray-400 py-20">No s'ha pogut carregar la pel·lícula.</p>
+<p class="text-center text-gray-400 py-20">No s'ha pogut carregar la pel·lícula.</p>
 }

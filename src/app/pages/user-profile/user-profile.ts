@@ -9,13 +9,13 @@ import { DecimalPipe } from '@angular/common';
   templateUrl: './user-profile.html',
   styleUrl: './user-profile.css',
 })
-export class UserProfile implements OnInit{
+export class UserProfile implements OnInit {
   authService = inject(AuthService);
   favoritesService = inject(FavoritesService);
 
   averageRating = computed(() => {
     const scoreValues = [...this.favoritesService.ratings().values()];
-    return scoreValues.length ? scoreValues.reduce((a,b)=> a + b, 0) / scoreValues.length : null;
+    return scoreValues.length ? scoreValues.reduce((a, b) => a + b, 0) / scoreValues.length : null;
   });
 
   ngOnInit(): void {

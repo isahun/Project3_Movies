@@ -57,17 +57,17 @@ export class MoviesService {
     });
   }
 
-    nextPage() {
-      this.currentPage.update(p => p + 1);
-      this.loadMovies();
-    }
+  nextPage() {
+    this.currentPage.update((p) => p + 1);
+    this.loadMovies();
+  }
 
-    prevPage() {
-      if (this.currentPage() > 1) {
-      this.currentPage.update(p => p - 1);
+  prevPage() {
+    if (this.currentPage() > 1) {
+      this.currentPage.update((p) => p - 1);
       this.loadMovies();
-      }
     }
+  }
 
   resetFilters() {
     this.searchTerm.set('');

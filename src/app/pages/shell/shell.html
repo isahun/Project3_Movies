@@ -10,9 +10,10 @@
           [routerLinkActiveOptions]="{ exact: true }">Pel·lícules</a>
 
         @if (authService.isLoggedIn()) {
-        <a routerLink="favorites" routerLinkActive="active-link"
-          [routerLinkActiveOptions]="{ exact: true }"> Favorites</a>
-        <a routerLink="user-profile" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">Perfil</a>
+        <a routerLink="favorites" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
+          Favorites</a>
+        <a routerLink="user-profile" routerLinkActive="active-link"
+          [routerLinkActiveOptions]="{ exact: true }">Perfil</a>
 
         <span>{{ authService.currentUser()?.email }}</span>
         <button class="logout-btn cursor-pointer" (click)="authService.logout()">Tanca sessió</button>
@@ -26,11 +27,14 @@
       @if (menuOpen()) {
       <div class="md:hidden px-6 py-4 flex flex-col gap-4 absolute top-full bg-black/90 left-0 w-full">
         <a routerLink="/">Inici</a>
-        <a routerLink="movies" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">Pel·lícules</a>
+        <a routerLink="movies" routerLinkActive="active-link"
+          [routerLinkActiveOptions]="{ exact: true }">Pel·lícules</a>
 
         @if (authService.isLoggedIn()) {
-        <a routerLink="favorites" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">Favorites</a>
-        <a routerLink="user-profile" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">Perfil</a>
+        <a routerLink="favorites" routerLinkActive="active-link"
+          [routerLinkActiveOptions]="{ exact: true }">Favorites</a>
+        <a routerLink="user-profile" routerLinkActive="active-link"
+          [routerLinkActiveOptions]="{ exact: true }">Perfil</a>
 
         <span>{{ authService.currentUser()?.email }}</span>
         <button class="logout-btn cursor-pointer text-left" (click)="authService.logout()">Tanca sessió</button>

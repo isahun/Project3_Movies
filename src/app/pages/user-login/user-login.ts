@@ -20,7 +20,7 @@ export class UserLogin {
     this.error = '';
 
     try {
-      await this.authService.login(this.email, this.password)
+      await this.authService.login(this.email, this.password);
     } catch (err: any) {
       this.error = err.message ?? 'Email o contrassenya incorrectes';
     }

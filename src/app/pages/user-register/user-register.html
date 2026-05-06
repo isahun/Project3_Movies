@@ -4,7 +4,8 @@
     <h1>Crea el teu compte</h1>
 
     <input class="register-input" type="email" [(ngModel)]="email" name="email" placeholder="Email" required>
-    <input class="register-input" type="password" [(ngModel)]="password" name="password" placeholder="Contrassenya" required>
+    <input class="register-input" type="password" [(ngModel)]="password" name="password" placeholder="Contrassenya"
+      required>
 
     @if (error) {
     <p class="error-msg text-sm">{{ error }}</p>

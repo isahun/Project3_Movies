@@ -88,8 +88,9 @@ export class TmdbService {
 
   getPersonMovieCredits(personId: number): Observable<PersonMovieCredits> {
     return this.http
-    .get<PersonMovieCredits>
-    (`${this.apiUrl}/person/${personId}/movie_credits`, { headers: this.headers })
-    .pipe(catchError(this.handleError.bind(this)));
+      .get<PersonMovieCredits>(`${this.apiUrl}/person/${personId}/movie_credits`, {
+        headers: this.headers,
+      })
+      .pipe(catchError(this.handleError.bind(this)));
   }
 }
