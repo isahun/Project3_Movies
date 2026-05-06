@@ -89,7 +89,7 @@ export class MovieDetailPage implements OnInit {
       vote_average: movie.vote_average,
       vote_count: 0,
       original_language: '',
-      genre_ids: movie.genres.map((g) => g.id),
+      genre_ids: movie.genres.map((genre) => genre.id),
     };
   }
 }
