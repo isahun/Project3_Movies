@@ -1,43 +1,21 @@
 // Importem les utilitats d'Angular necessàries per a aquest component:
-// - Component: decorador que defineix la classe com a component Angular
-// - input: funció per declarar inputs del component (Angular 17+)
-// - inject: funció per injectar dependències sense constructor
 // - OnInit: interfície que obliga a implementar ngOnInit()
-// - signal: funció per crear valors reactius (Angular Signals)
 import { Component, input, inject, OnInit, signal } from '@angular/core';
-
-// Servei que fa les crides a l'API de TMDB (The Movie Database)
 import { TmdbService } from '../../services/tmdb-service';
-
 // forkJoin fa múltiples peticions HTTP en paral·lel i espera que totes acabin
 import { forkJoin } from 'rxjs';
-
-// Interfícies per tipar les dades de l'equip artístic de la pel·lícula
 import { CastMember, CrewMember } from '../../interfaces/person-detail';
-
-// Interfícies per tipar els detalls de la pel·lícula i els proveïdors de streaming
 import { MovieDetail, WatchProviderResult } from '../../interfaces/movie-detail';
-
-// Pipes d'Angular per formatar dates i números a la plantilla HTML
 import { DatePipe, DecimalPipe } from '@angular/common';
-
 // Directiva per crear enllaços de navegació interna amb el Router d'Angular
 import { RouterLink } from '@angular/router';
-
 // DomSanitizer: servei per marcar URLs com a segures (evita errors de seguretat XSS)
 // SafeResourceUrl: tipus per a URLs sanejades que es poden fer servir a iframes
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-
 // Funció utilitària que construeix l'URL d'embedding (iframe) per a un vídeo
 import { buildVideoEmbedUrl } from '../../utils/video-url.utils';
-
-// Servei que gestiona l'autenticació de l'usuari (login/logout, sessió activa)
 import { AuthService } from '../../services/auth-service';
-
-// Servei que gestiona la llista de pel·lícules favorites de l'usuari
 import { FavoritesService } from '../../services/favorites-service';
-
-// Interfície genèrica de pel·lícula, usada al component de favorits
 import { Movie } from '../../interfaces/movie';
 
 // Decorador @Component: configura el component Angular
@@ -49,8 +27,8 @@ import { Movie } from '../../interfaces/movie';
 })
 export class MovieDetailPage implements OnInit {
   // inject() és la manera moderna d'Angular per obtenir serveis (substitueix el constructor)
-  private tmdbService = inject(TmdbService); // Per fer crides a l'API de TMDB
-  private sanitizer = inject(DomSanitizer); // Per sanejar URLs d'iframes
+  private tmdbService = inject(TmdbService);
+  private sanitizer = inject(DomSanitizer);
   favoritesService = inject(FavoritesService); // Públic perquè la plantilla hi accedeix
   authService = inject(AuthService); // Públic perquè la plantilla hi accedeix
 
