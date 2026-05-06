@@ -1,15 +1,28 @@
 <section class="card-container">
   <article class="movie-card group relative bg-[#1a1a1a] rounded-3xl overflow-hidden cursor-pointer p-5 transition-transform duration-300 hover:scale-105 hover:shadow-2xl">
+    <!-- [routerLink]="['/movie', movie().id]" → binding dinàmic: construeix la URL /movie/550, /movie/123...
+         movie() → cridem el signal (les propietats de classe als templates es llegeixen sense parèntesis,
+         però com que movie és un input signal, hem de cridar-lo amb ()) -->
     <a [routerLink]="['/movie', movie().id]">
+      <!-- [src] → property binding: l'atribut src s'actualitza dinàmicament amb el valor de l'expressió -->
+      <!-- [alt] → ídem per l'atribut alt (important per accessibilitat) -->
       <img [src]="'https://image.tmdb.org/t/p/w300' + movie().poster_path" [alt]="movie().title" class="w-full aspect-2/3 object-cover rounded-xl">
       <div class="movie-info p-3 flex flex-col">
         <h3 class="text-white font-semibold text-sm"> {{ movie().title }}</h3>
+        <!-- {{ }} = interpolació: insereix el valor de l'expressió com a text -->
+        <!-- | date → pipe de formatació: converteix '2023-11-01' a '1 Nov 2023' (o el format local) -->
         <span class="italic"> {{ movie().release_date | date }}</span>
+        <!-- | number:'1.1-1' → pipe de número: mínim 1 dígit enter, entre 1 i 1 decimal -->
         <span class="text-yellow-500"> ⭐ {{ movie().vote_average | number:'1.1-1' }}</span>
       </div>
     </a>
+
+    <!-- Botó de favorit: només visible si l'usuari ha iniciat sessió -->
     @if (authService.currentUser()) {
+    <!-- [attr.aria-label] → binding d'atribut HTML (no propietat DOM); necessari per atributs
+         que no existeixen com a propietat nativa (aria-*, data-*, etc.) -->
     <button (click)="favoritesService.toggleFavorite(movie())" class="favorite-btn absolute top-2 right-2 text-xl md:opacity-0 md:group-hover:opacity-100 transition-opacity" [attr.aria-label]="favoritesService.isFavorite(movie().id) ? 'Eliminar de favorites' : 'Afegir a favorites'">
+      <!-- Expressió ternària dins de la interpolació: canvia l'emoji segons l'estat -->
       {{ favoritesService.isFavorite(movie().id) ? '❤️' : '🤍' }}
     </button>
     }

@@ -4,15 +4,21 @@
   <article class="search-input-container relative flex-1 min-w-48">
     <label for="search" class="sr-only">Cercar per nom</label>
     <span class="search-icon absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">🔍</span>
+    <!-- [value]: llegeix el valor actual del signal per inicialitzar/sincronitzar el camp
+         (input): escolta l'event input de l'element (es dispara a cada tecla)
+         Aquesta combinació és equivalent a [(ngModel)] però sense necessitar FormsModule -->
     <input type="text" placeholder="Busca pel·lícules" [value]="moviesService.searchTerm()" (input)="onSearch($event)"
       class="search-input w-full bg-[#1a1a1a] text-white pl-9 pr-4 py-2 rounded-lg border border-white/10 focus:border-(--color-accent) focus:outline-none placeholder:text-gray-500 transition-colors">
   </article>
 
   <fieldset class="sort-controls flex gap-2">
+    <!-- [class] → binding de classe dinàmic: assigna classes CSS condicionalment
+         Si sortBy() === 'score', aplica les classes del botó actiu; si no, les del botó inactiu -->
     <button type="button" (click)="changeSort('score')"
       [class]="moviesService.sortBy() === 'score'
         ? 'px-3 py-2 rounded-lg text-sm bg-(--color-accent) text-white'
         : 'px-3 py-2 rounded-lg text-sm bg-[#1a1a1a] text-gray-300 hover:cursor-pointer border border-white/10 hover:border-white/30 transition-colors'">Puntuació
+      <!-- Mostra la fletxa d'ordre NOMÉS quan aquest criteri està actiu -->
       @if (moviesService.sortBy() === 'score') {
       {{ moviesService.sortOrder() === 'asc' ? '↑' : '↓' }}
       }
@@ -28,9 +34,14 @@
     </button>
   </fieldset>
 
+  <!-- (change) en un select s'activa quan l'usuari canvia l'opció seleccionada -->
+  <!-- ?? '' → si selectedGenre() és null, el select mostra l'opció "Tots els gèneres" (valor "") -->
   <select [value]="moviesService.selectedGenre() ?? ''" (change)="onGenreSearch($event)"
     class="bg-[#1a1a1a] text-gray-300 px-3 py-2 rounded-lg border border-white/10 focus:border-(--color-accent) focus:outline-none transition-colors cursor-pointer">
     <option value="">Tots els gèneres</option>
+    <!-- @for és el bucle de la nova sintaxi d'Angular 17+ (substitueix *ngFor) -->
+    <!-- track genre.id → Angular usa l'id per identificar cada element i optimitzar el re-render
+         (en comptes de re-crear tots els <option> cada vegada que canvia la llista) -->
     @for (genre of genres; track genre.id) {
     <option [value]="genre.id">{{ genre.name }}</option>
     }

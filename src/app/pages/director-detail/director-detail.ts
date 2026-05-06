@@ -16,6 +16,9 @@ export class DirectorDetail implements OnInit {
   directorId = input.required<string>();
 
   director = signal<PersonDetail | null>(null);
+
+  // PersonCrewCredit (no CastMember): els directors estan a la llista "crew", no "cast".
+  // cast = actors; crew = tothom darrere la càmera (director, guionista, editor, etc.)
   movies = signal<PersonCrewCredit[]>([]);
   isLoading = signal(true);
 
@@ -28,6 +31,11 @@ export class DirectorDetail implements OnInit {
     }).subscribe({
       next: ({ director, credits }) => {
         this.director.set(director);
+
+        // credits.crew conté TOTES les feines de la persona (director, productor, guionista...).
+        // Filtrem per job === 'Director' perquè una mateixa persona pot aparèixer múltiples vegades
+        // en la mateixa pel·lícula amb rols diferents (p.ex. director i productor alhora).
+        // També filtrem per poster_path per no mostrar targetes buides.
         this.movies.set(
           credits.crew
             .filter((member) => member.job === 'Director' && member.poster_path)

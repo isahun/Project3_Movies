@@ -1,3 +1,4 @@
+<!-- Tres estats: carregant → dades rebudes → (si actor() és null, no es mostra res) -->
 @if (isLoading()) {
 <p class="text-center text-gray-400 py-20">Carregant...</p>
 } @else if (actor()) {
@@ -8,11 +9,15 @@
 
     <div class="flex flex-col gap-2">
       <h1 class="text-3xl font-bold text-white">{{ actor()!.name }}</h1>
+
+      <!-- Les propietats place_of_birth i birthday poden ser null (definit a la interfície PersonDetail).
+           @if amb valors nullables: si el valor és null, el bloc no es renderitza -->
       @if (actor()!.place_of_birth) {
       <p class="text-gray-400 text-sm">Nacionalitat: {{ actor()!.place_of_birth }}</p>
       }
 
       @if (actor()!.birthday){
+      <!-- | date:'longDate' → format llarg: '1 de novembre de 1975' (depenent de la localització) -->
       <p class="text-gray-400 text-sm">Data de naixement: {{ actor()!.birthday | date:'longDate' }}</p>
       }
 
@@ -32,9 +37,11 @@
           <img [src]="'https://image.tmdb.org/t/p/w200' + movie.poster_path" [alt]="'Pòster de ' + movie.title"
             class="w-full rounded-lg group-hover:scale-105 transition-transform duration-300">
           <p class="text-xs text-gray-300 mt-1 truncate">{{ movie.title }}</p>
+          <!-- movie.character pot ser una string buida ("") si el personatge no té nom → @if ho oculta -->
           @if (movie.character) {
           <p class="text-xs text-gray-500 italic">com a {{ movie.character }}</p>
           }
+          <!-- | date: 'yyyy' → mostra només l'any (p.ex. "2019") -->
           <p class="text-xs text-gray-500">{{ movie.release_date | date: 'yyyy' }}</p>
         </a>
       </li>

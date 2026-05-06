@@ -1,17 +1,25 @@
 <section class="login mx-10 my-auto min-h-[80vh]">
+  <!-- (ngSubmit) → event especial de FormsModule: s'activa quan es fa submit del formulari
+       És millor que (submit) al <form> perquè prevé el comportament per defecte (recarregar la pàgina) automàticament -->
   <form (ngSubmit)="onSubmit()"
     class="login-form flex flex-col gap-5 items-center justify-center bg-gray-800 p-10 rounded-3xl m-auto max-w-120">
     <h1>Benvingut/da al CINEMA</h1>
 
+    <!-- [(ngModel)] = "two-way binding" (banana in a box): sincronització bidireccional
+         → Quan l'usuari escriu, la propietat email del component s'actualitza
+         → Si canviem email per codi, el camp mostra el nou valor
+         name="email" és obligatori quan s'usa ngModel dins d'un <form> -->
     <input class="login-input" type="email" [(ngModel)]="email" name="email" placeholder="Email" required>
     <input class="login-input" type="password" [(ngModel)]="password" name="password" placeholder="Password" required>
 
+    <!-- error és una propietat normal de classe (no un signal), per això no porta () -->
     @if (error) {
     <p>{{ error }}</p>
     }
 
     <div class="login-btn-container flex flex-col gap-3">
       <button class="login-btn px-5 py-2.5 rounded-3xl cursor-pointer" type="submit">Entrar</button>
+      <!-- type="button" és important: evita que aquest botó faci submit del formulari accidentalment -->
       <button type="button" (click)="authService.loginWithGoogle()"
         class="google-login-btn flex items-center justify-center gap-3 bg-white text-gray-800 font-semibold py-2 px-3 rounded-lg transition-all cursor-pointer">
         <img src="https://www.google.com/favicon.ico" class="w-4 h-4" alt="Google" />

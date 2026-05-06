@@ -6,10 +6,16 @@
     <div class="flex items-center gap-4">
       <div
         class="w-14 h-14 rounded-full overflow-hidden flex items-center justify-center bg-(--color-accent) text-white text-2xl font-bold">
+        <!-- user_metadata['avatar_url'] → dades extra de Supabase: present si l'usuari va fer login amb Google
+             ?. encadenat: currentUser()?.user_metadata?.['avatar_url']
+             Si qualsevol pas és null/undefined, tota l'expressió retorna undefined (no peta) -->
         @if (authService.currentUser()?.user_metadata?.['avatar_url']) {
         <img [src]="authService.currentUser()!.user_metadata['avatar_url']" class="w-full h-full object-cover"
           alt="Foto de perfil" />
         } @else {
+        <!-- email?.[0] → optional chaining sobre un string: accedeix al primer caràcter
+             Si email fos undefined, retorna undefined en comptes de petar
+             .toUpperCase() → mostra la inicial en majúscula com a avatar de text -->
         {{ authService.currentUser()?.email?.[0]?.toUpperCase() }}
         }
       </div>
@@ -23,11 +29,14 @@
 
     <div class="flex justify-around text-center">
       <div>
+        <!-- .length en un signal d'array: cal cridar el signal primer favorites(), després .length -->
         <p class="text-2xl font-bold text-white">{{ favoritesService.favorites().length }}</p>
         <p class="text-gray-400 text-sm">Favorites</p>
       </div>
       <div>
         <p class="text-2xl font-bold text-yellow-400">
+          <!-- averageRating() és un computed signal; comprovem null abans de formatar-lo
+               | number:'1.1-1' → sempre 1 decimal; si no hi ha puntuacions, mostrem '-' -->
           {{ averageRating() !== null ? (averageRating() | number:'1.1-1') : '-' }}
         </p>
         <p class="text-gray-400 text-sm">Puntuació mitjana</p>

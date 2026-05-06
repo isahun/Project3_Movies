@@ -12,6 +12,7 @@ import { AuthService } from '../../services/auth-service';
 export class UserRegister {
   private authService = inject(AuthService);
 
+  // Vinculades als inputs via [(ngModel)] (igual que UserLogin)
   email = '';
   password = '';
   error = '';
@@ -22,7 +23,7 @@ export class UserRegister {
     try {
       await this.authService.register(this.email, this.password);
     } catch (err: any) {
-      this.error = err.message ?? 'Errnr en crear el compte';
+      this.error = err.message ?? 'Error en crear el compte';
     }
   }
 }

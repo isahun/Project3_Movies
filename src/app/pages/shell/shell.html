@@ -4,26 +4,39 @@
 
       <span routerLink="/" class="text-xl font-bold text-white tracking-widest mr-5 cursor-pointer">CINEMA</span>
 
+      <!-- Menú d'escriptori: visible a partir de md (768px) gràcies a hidden md:flex de Tailwind -->
       <div class="hidden md:flex gap-8 items-center text-sm text-gray-300">
+        <!-- routerLink: directiva que navega internament sense recarregar la pàgina (com un <a href> però de SPA) -->
         <a routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">Inici</a>
-        <a routerLink="movies" routerLinkActive="active-link"
-          [routerLinkActiveOptions]="{ exact: true }">Pel·lícules</a>
+        <!-- routerLinkActive afegeix la classe CSS "active-link" quan la URL coincideix amb routerLink -->
+        <!-- [routerLinkActiveOptions]="{ exact: true }" → la classe només s'afegeix si la URL és exactament "/" -->
+        <!-- Sense exact: true, "/" s'activaria a TOTES les pàgines perquè totes comencen per "/" -->
+        <a routerLink="movies" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">Pel·lícules</a>
 
+        <!-- @if és la nova sintaxi de control de flux d'Angular 17+ (substitueix *ngIf) -->
+        <!-- authService.isLoggedIn() llegeix el signal currentUser del servei -->
         @if (authService.isLoggedIn()) {
-        <a routerLink="favorites" routerLinkActive="active-link"
-          [routerLinkActiveOptions]="{ exact: true }"> Favorites</a>
+        <a routerLink="favorites" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }"> Favorites</a>
         <a routerLink="user-profile" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">Perfil</a>
 
+        <!-- ?. (optional chaining): si currentUser() fos null, no peta; simplement mostra res -->
         <span>{{ authService.currentUser()?.email }}</span>
+        <!-- (click) = event binding: executa l'expressió quan es fa clic -->
         <button class="logout-btn cursor-pointer" (click)="authService.logout()">Tanca sessió</button>
         } @else {
         <a routerLink="/login" class="nav-login-btn px-4 py-1.5 rounded-3xl transition-colors">Inicia sessió</a>
         }
       </div>
 
+      <!-- Botó hamburguesa per a mòbil: visible fins a md -->
+      <!-- $event.stopPropagation() → evita que el clic arribi al @HostListener('document:click') de Shell,
+           que tancaria el menú immediatament després d'obrir-lo -->
       <button class="md:hidden p-2 cursor-pointer" (click)="toggleMenu(); $event.stopPropagation()"> ☰ </button>
 
+      <!-- @if en un template: renderitza el bloc CONDICIONALMENT, sense eliminar/afegir classes -->
+      <!-- menuOpen() → crida el signal; Angular re-renderitza quan el valor canvia -->
       @if (menuOpen()) {
+      <!-- Menú mòbil desplegable: es posiciona absolutament sota la navbar -->
       <div class="md:hidden px-6 py-4 flex flex-col gap-4 absolute top-full bg-black/90 left-0 w-full">
         <a routerLink="/">Inici</a>
         <a routerLink="movies" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">Pel·lícules</a>
@@ -31,7 +44,6 @@
         @if (authService.isLoggedIn()) {
         <a routerLink="favorites" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">Favorites</a>
         <a routerLink="user-profile" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">Perfil</a>
-
         <span>{{ authService.currentUser()?.email }}</span>
         <button class="logout-btn cursor-pointer text-left" (click)="authService.logout()">Tanca sessió</button>
         } @else {
@@ -43,6 +55,9 @@
   </nav>
 
   <main>
+    <!-- router-outlet és el "forat" on Angular insereix el component de la ruta activa.
+         En aquest cas, és on apareixerà Home, MoviesList, MovieDetailPage, etc.
+         Sense aquest element, les pàgines filles no es renderitzarien. -->
     <router-outlet></router-outlet>
   </main>
 

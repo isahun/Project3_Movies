@@ -1,13 +1,22 @@
 <section class="movies-list px-6 py-8 max-w-7xl mx-auto">
+  <!-- <app-search-tool> → etiqueta del component SearchTool (definida al seu @Component selector).
+       Angular la substitueix pel template del component quan renderitza. -->
   <app-search-tool></app-search-tool>
 
   <ul class="movies-list grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mt-6">
+    <!-- @for itera sobre el signal filteredMovies() (cridat com a funció perquè és un computed signal).
+         track movie.id → Angular reutilitza els elements existents del DOM en lloc de re-crear-los,
+         cosa que fa les actualitzacions molt més eficients -->
     @for (movie of filteredMovies(); track movie.id) {
+    <!-- <app-movie-card> és un component que rep l'input [movie].
+         [movie]="movie" → property binding: passa l'objecte movie al component fill.
+         El component fill el rep amb input.required<Movie>() -->
     <app-movie-card [movie]="movie"></app-movie-card>
     }
   </ul>
 
   <nav class="pagination flex justify-center gap-6 mt-8 text-gray-400">
+    <!-- [disabled] → property binding natiu de HTML: desactiva el botó quan la condició és true -->
     <button (click)="moviesService.prevPage()" [disabled]="moviesService.currentPage() === 1"
       class="pag-btn bg-black p-3 rounded-3xl cursor-pointer hover:text-white hover:scale-1.2  transition-colors ">
       ← Anterior

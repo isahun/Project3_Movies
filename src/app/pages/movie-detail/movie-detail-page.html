@@ -1,14 +1,18 @@
+<!-- @if / @else if / @else: nova sintaxi de control de flux Angular 17+
+     Aquí gestiona tres estats: carregant, dades rebudes, o error -->
 @if (isLoading()) {
 <p class="text-center text-gray-400 py-20">Carregant...</p>
 } @else if (movie()) {
 <article class="max-w-5xl mx-auto px-6 py-8">
   <div class="flex flex-col md:flex-row gap-8 mb-10">
+    <!-- movie()! → el ! és l'operador de "non-null assertion" de TypeScript:
+         li diem al compilador "confio que movie() no és null aquí" (acabem de comprovar-ho a @else if) -->
     <img [src]="'https://image.tmdb.org/t/p/w500' + movie()!.poster_path" [alt]="'Pòster de ' + movie()!.title"
       class="w-full md:w-64 rounded-xl object-cover self-start shadow-2xl">
 
-
     <div class="fav-detail flex gap-5 bg-gray-800 p-3 rounded-3xl mr-auto">
       @if (authService.currentUser()) {
+      <!-- asMovie()! → mètode del component que converteix MovieDetail → Movie per al servei de favorits -->
       <button (click)="favoritesService.toggleFavorite(asMovie()!)" class="favorite-btn flex cursor-pointer text-sm text-gray-400 italic"
         [attr.aria-label]="favoritesService.isFavorite(movie()!.id) ? 'Eliminar de favorites' : 'Afegir a favorites'">
         Afegeix/elimina de favorits {{ favoritesService.isFavorite(movie()!.id) ? '❤️' : '🤍' }}
@@ -21,17 +25,22 @@
       <p class="text-gray-400 italic">{{ movie()!.tagline }}</p>
       <div class="flex gap-2 flex-wrap">
         <ul>
+          <!-- @for sobre l'array genres de MovieDetail; track per l'id per optimitzar el render -->
           @for (genre of movie()!.genres; track genre.id) {
           <li>{{ genre.name }}</li>
           }
         </ul>
       </div>
 
+      <!-- | date sense paràmetres → usa el format per defecte de la localització de l'app -->
       <p class="text-gray-400 text-sm">{{ movie()!.release_date | date }} · {{ movie()!.runtime }} min</p>
+      <!-- | number:'1.1-1' → mostra exactament 1 decimal (p.ex. "7.4") -->
       <p class="text-yellow-400 font-semibold">{{ movie()!.vote_average | number:'1.1-1' }} / 10</p>
       <p class="text-gray-300 leading-relaxed">{{ movie()!.overview }}</p>
 
+      <!-- @if comprova si el signal director() té valor (no és null) -->
       @if (director()) {
+      <!-- [routerLink] amb array permet construir URLs dinàmiques: ['/director', 123] → '/director/123' -->
       <a [routerLink]="['/director', director()!.id]" class="hover:text-(--color-accent) transition-colors">Director: {{
         director()!.name }}</a>
       }
@@ -46,12 +55,15 @@
         }
       </ul>
 
+      <!-- watchProviders() pot ser null si no hi ha dades de streaming per Espanya -->
       @if (watchProviders()) {
       <section>
         <h2 class="text-xl font-semibold text-white mb-4">On veure-la</h2>
+        <!-- flatrate? → la propietat és opcional a la interfície; .length comprova que té elements -->
         @if (watchProviders()!.flatrate?.length) {
         <h3 class="text-sm text-gray-400 mb-2">Streaming</h3>
         <ul class="text-sm text-gray-400 mb-2">
+          <!-- flatrate! → el ! confirma a TypeScript que flatrate existeix (acabem de comprovar-ho) -->
           @for (p of watchProviders()!.flatrate!; track p.provider_id){
           <li class="flex items-center gap-2 bg-white/5 px-3 py-2 rounded-lg">
             <img [src]="'https://image.tmdb.org/t/p/w45' + p.logo_path" [alt]="p.provider_name" class="w-6 h-6 rounded">
@@ -77,6 +89,8 @@
     </div>
   </div>
 
+  <!-- trailerUrl és SafeResourceUrl (no un signal), per això no porta () -->
+  <!-- Angular bloquejaria un string normal a [src] d'un iframe; necessita SafeResourceUrl -->
   @if (trailerUrl) {
   <div class="mb-10 aspect-video">
     <iframe [src]="trailerUrl" width="560" height="315" frameborder="0" allowfullscreen>Tràiler</iframe>
