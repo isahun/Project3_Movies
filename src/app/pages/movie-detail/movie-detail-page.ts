@@ -50,7 +50,7 @@ export class MovieDetailPage implements OnInit {
         this.director.set(credits.crew.find((person) => person.job === 'Director') ?? null);
         this.watchProviders.set(providers);
 
-        const trailer =
+        const trailer = //sacar logica en método privado
           videos.find(
             (video) =>
               (video.type === 'Trailer' || video.type === 'Teaser') &&

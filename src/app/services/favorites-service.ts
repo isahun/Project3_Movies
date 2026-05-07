@@ -7,7 +7,7 @@ import { Movie } from '../interfaces/movie';
 })
 export class FavoritesService {
   private authService = inject(AuthService);
-  private supabase = this.authService.supabase;
+  private supabase = this.authService.supabase;//generic db name for best practice
 
   favorites = signal<Movie[]>([]);
   ratings = signal<Map<number, number>>(new Map());
