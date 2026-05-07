@@ -53,14 +53,18 @@ npm install
 
 ### 3. Configura les variables d'entorn
 
-Crea el fitxer `src/environments/environment.ts` (i `environment.development.ts` per a dev):
+Crea el fitxer `src/environments/environment.ts`:
 
 ```typescript
 export const environment = {
+  production: false,
   apiUrl: 'https://api.themoviedb.org/3',
-  accessToken: 'EL_TEU_TOKEN_TMDB',
-  supabaseUrl: 'LA_TEVA_URL_SUPABASE',
-  supabaseKey: 'LA_TEVA_CLAU_SUPABASE',
+  apiKey: 'LA_TEVA_API_KEY_TMDB',
+  accessToken: 'EL_TEU_TOKEN_BEARER_TMDB',
+  supabase: {
+    sbUrl: 'LA_TEVA_URL_SUPABASE',
+    sbKey: 'LA_TEVA_CLAU_PUBLICA_SUPABASE',
+  },
 };
 ```
 
@@ -152,11 +156,11 @@ src/app/
 ## Tests
 
 ```bash
-# Executar tots els tests
+# Executar tots els tests (una vegada)
 ng test
 
-# Mode watch
-ng test --watch
+# Mode watch (Vitest, re-executa en guardar)
+npx vitest
 ```
 
 Els tests utilitzen **Vitest** amb **Angular TestBed** en un entorn jsdom compartit.
