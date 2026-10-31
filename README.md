@@ -41,7 +41,7 @@ Aplicació web de gestió de preferències cinematogràfiques. Permet explorar p
 ### 1. Clona el repositori
 
 ```bash
-git clone <url-del-repo>
+git clone https://github.com/isahun/Project3_Movies.git
 cd Project3_Movies
 ```
 
